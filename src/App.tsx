@@ -283,14 +283,15 @@ function ViewScript() {
                 <Download className="w-3.5 h-3.5" />
                 Download
               </button>
-              <Link 
-                to={`/raw/${fileName}`}
+              <a 
+                href={`/scripts/${fileName}`}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="btn-secondary w-full flex items-center justify-center gap-2 text-[11px] font-bold tracking-tight"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
                 Raw
-              </Link>
+              </a>
             </div>
           </motion.div>
         </div>
@@ -364,45 +365,6 @@ function ViewScript() {
   );
 }
 
-function RawScript() {
-  const { fileName } = useParams();
-  const [code, setCode] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!fileName) return;
-
-    fetch(`/scripts/${fileName}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Script not found");
-        return res.text();
-      })
-      .then((text) => {
-        setCode(text);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, [fileName]);
-
-  if (loading) {
-    return <div className="bg-black text-white p-4 font-mono">Loading raw content...</div>;
-  }
-
-  if (error) {
-    return <div className="bg-black text-white p-4 font-mono">Error: {error}</div>;
-  }
-
-  return (
-    <pre className="bg-black text-white p-4 font-mono text-sm whitespace-pre min-h-screen selection:bg-white selection:text-black">
-      {code}
-    </pre>
-  );
-}
-
 // --- Layout & App ---
 
 function ScrollToTop() {
@@ -414,13 +376,6 @@ function ScrollToTop() {
 }
 
 function MainLayout({ children }: { children: ReactNode }) {
-  const location = useLocation();
-  const isRaw = location.pathname.startsWith("/raw");
-
-  if (isRaw) {
-    return <>{children}</>;
-  }
-
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -445,7 +400,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/view/:fileName" element={<ViewScript />} />
-          <Route path="/raw/:fileName" element={<RawScript />} />
         </Routes>
       </MainLayout>
     </Router>
