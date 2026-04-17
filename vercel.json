@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/(scripts/.*)",
+      "source": "/(raw/.*)",
       "destination": "/$1"
     },
     {
