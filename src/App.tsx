@@ -131,7 +131,7 @@ function Home() {
                 }}
                 className="border border-white/10 bg-white/[0.02] p-5 h-full hover:bg-white/[0.05] hover:border-white/30 transition-all duration-300 flex flex-col"
               >
-                <div className="flex justify-between items-start mb-3">
+                <div className="flex justify-between items-start mb-2">
                   <div className="flex items-center gap-2.5 overflow-hidden flex-1">
                     <div className="p-1 border border-white/10 bg-white/5 flex-shrink-0">
                       <FileCode className="w-4 h-4 text-white/40 group-hover:text-white/80" />
@@ -144,6 +144,12 @@ function Home() {
                     {script.language}
                   </span>
                 </div>
+
+                {script.date && (
+                  <p className="text-[9px] font-mono text-neutral-400 mb-2.5">
+                    {new Date(script.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                  </p>
+                )}
                 
                 <div className="flex items-start justify-between gap-3 flex-1">
                   <p className="text-xs text-neutral-400 font-medium leading-relaxed tracking-tight flex-1">
@@ -151,12 +157,6 @@ function Home() {
                   </p>
                   <ChevronRight className="w-4 h-4 text-neutral-400 group-hover:text-white transition-all flex-shrink-0 mt-0.5" />
                 </div>
-
-                {script.date && (
-                  <p className="text-[9px] font-mono text-neutral-400 mt-3 pt-3 border-t border-white/5">
-                    {new Date(script.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
-                  </p>
-                )}
               </motion.div>
             </Link>
           ))}
@@ -258,7 +258,7 @@ function ViewScript() {
             <h1 className="text-sm font-bold mb-0.5 break-all text-white/90">{fileName}</h1>
 
             {scriptData?.explanation && (
-              <p className="text-[10px] text-neutral-300 font-medium leading-relaxed mt-2">
+              <p className="text-[10px] text-neutral-500 font-medium leading-relaxed mt-2">
                 {scriptData.explanation}
               </p>
             )}
