@@ -7,7 +7,7 @@
     "explanation": "Script ini berfungsi untuk mengunggah gambar ke layanan hosting Catbox. Menggunakan library Axios untuk request HTTP dan FormData untuk menyusun payload file. Script ini juga mengatur header seperti User-Agent dan Referer agar request diterima oleh server Catbox.",
     "language": "JavaScript",
     "author": "Givy",
-    "date": "2026-04-18"
+    "date": "2026-04-17"
   },
   {
     "id": "2",
@@ -17,6 +17,6 @@
     "explanation": "Script ini digunakan untuk melewati (bypass) berbagai jenis shortlink atau proteksi URL dengan bantuan API eksternal. Biasanya memanfaatkan fetch atau Axios untuk mengirim request ke endpoint bypass, lalu mengambil hasil link asli dari response JSON.",
     "language": "JavaScript",
     "author": "Givy",
-    "date": "2026-04-18"
+    "date": "2026-04-17"
   }
 ]
