@@ -3,15 +3,12 @@ import { BrowserRouter as Router, Routes, Route, useLocation, useParams, Link, u
 import { motion, AnimatePresence } from "motion/react";
 import { 
   Search, 
-  Code2, 
-  ArrowRight, 
   ArrowLeft, 
   Copy, 
   Download, 
   ExternalLink, 
   Check, 
   FileCode,
-  Github,
   ChevronRight
 } from "lucide-react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -251,59 +248,54 @@ function ViewScript() {
               <FileCode className="w-4 h-4 text-neutral-400" />
             </div>
             <h1 className="text-sm font-bold mb-0.5 break-all text-white/90">{fileName}</h1>
-            <p className="text-[9px] text-neutral-500 mb-4 uppercase tracking-widest font-bold">
-              Source Payload
-            </p>
 
-            <div className="space-y-1.5">
-              <button onClick={handleCopy} className="btn-primary w-full flex items-center justify-center gap-1.5 py-1.5 text-[10px] font-bold tracking-tight rounded-none">
-                {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                {copied ? "Copied" : "Copy"}
-              </button>
-              <button onClick={handleDownload} className="btn-secondary w-full flex items-center justify-center gap-1.5 py-1.5 text-[10px] font-bold tracking-tight rounded-none bg-white/5 border-white/10">
-                <Download className="w-3 h-3" />
-                Download
-              </button>
-              <a 
-                href={`/raw/${fileName}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary w-full flex items-center justify-center gap-1.5 py-1.5 text-[10px] font-bold tracking-tight rounded-none bg-white/5 border-white/10"
-              >
-                <ExternalLink className="w-3 h-3" />
-                Raw
-              </a>
-            </div>
+            {scriptData?.explanation && (
+              <p className="text-[10px] text-neutral-500 leading-relaxed mt-2">
+                {scriptData.explanation}
+              </p>
+            )}
           </motion.div>
         </div>
 
-        <div className="lg:w-4/5 space-y-4">
-          {scriptData?.explanation && (
-            <motion.div 
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="border border-white/10 bg-white/[0.02] p-4"
-            >
-              <h2 className="text-[10px] font-bold text-white mb-2 flex items-center gap-2 uppercase tracking-wider">
-                <div className="w-0.5 h-2 bg-white/20" />
-                Penjelasan Script
-              </h2>
-              <p className="text-[11px] text-neutral-500 leading-relaxed font-medium">
-                {scriptData.explanation}
-              </p>
-            </motion.div>
-          )}
-
+        <div className="lg:w-4/5">
           <div className="border border-white/10 overflow-hidden" style={{ background: '#0d0d0d' }}>
-            <div className="flex items-center px-3 py-1.5 bg-white/[0.02] border-b border-white/5">
-              <div className="flex gap-1 mr-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
-                <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
-                <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
+            <div className="flex items-center justify-between px-3 py-1.5 bg-white/[0.02] border-b border-white/5">
+              <div className="flex items-center gap-3">
+                <div className="flex gap-1">
+                  <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
+                </div>
+                <span className="text-[9px] font-mono text-neutral-500 hidden md:inline tracking-tight">
+                  {fileName} — {loading ? "..." : `${code.split('\n').length} lines`}
+                </span>
               </div>
-              <span className="text-[9px] font-mono text-neutral-500 hidden md:inline tracking-tight">
-                {fileName} — {loading ? "..." : `${code.split('\n').length} lines`}
-              </span>
+
+              <div className="flex items-center divide-x divide-white/10 border border-white/10">
+                <a
+                  href={`/raw/${fileName}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center px-2.5 py-1 text-white/30 hover:text-white hover:bg-white/5 transition-all"
+                  title="Raw"
+                >
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+                <button
+                  onClick={handleCopy}
+                  className="flex items-center px-2.5 py-1 text-white/30 hover:text-white hover:bg-white/5 transition-all"
+                  title="Copy"
+                >
+                  {copied ? <Check className="w-3 h-3 text-white/60" /> : <Copy className="w-3 h-3" />}
+                </button>
+                <button
+                  onClick={handleDownload}
+                  className="flex items-center px-2.5 py-1 text-white/30 hover:text-white hover:bg-white/5 transition-all"
+                  title="Download"
+                >
+                  <Download className="w-3 h-3" />
+                </button>
+              </div>
             </div>
 
             <div className="relative">
