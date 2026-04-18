@@ -20,17 +20,17 @@ import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-bg/80 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="p-2 border border-white/10 bg-white transition-colors group-hover:border-white/20">
+      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2.5 group">
+          <div className="p-1.5 border border-white/10 bg-white transition-colors group-hover:border-white/20">
             <img 
               src="/icon.png" 
-              className="w-12 h-12" 
+              className="w-7 h-7" 
               alt="Scraptory Logo" 
               referrerPolicy="no-referrer"
             />
           </div>
-          <span className="text-2xl font-bold tracking-tight text-white uppercase font-pixel decoration-none">
+          <span className="text-xl font-bold tracking-tight text-white uppercase font-pixel decoration-none">
             Scraptory
           </span>
         </Link>
