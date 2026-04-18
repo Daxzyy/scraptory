@@ -25,5 +25,14 @@
     "language": "JavaScript",
     "author": "Givy",
     "date": "2026-04-18"
-  }
+  },
+  {
+  "id": "4",
+  "name": "Domain Finder",
+  "fileName": "domain-finder.js",
+  "explanation": "Cari dan tampilkan domain berdasarkan kata kunci.",
+  "language": "JavaScript",
+  "author": "Givy",
+  "date": "2026-04-18"
+}
 ]
