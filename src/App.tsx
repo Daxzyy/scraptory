@@ -261,7 +261,7 @@ function ViewScript() {
           <div className="border border-white/10 overflow-hidden" style={{ background: '#161616' }}>
             <div className="flex items-center justify-between px-3 py-1.5 bg-white/[0.02] border-b border-white/5">
               <span className="text-[9px] font-mono text-neutral-500 tracking-tight">
-                {fileName} — {loading ? "..." : `${code.split('\n').length} lines`}
+{loading ? "..." : `${code.split('\n').length} lines`}
               </span>
 
               <div className="flex items-center gap-0">
