@@ -142,7 +142,7 @@ function Home() {
                       </h3>
                       {script.date && (
                         <>
-                          <span className="text-neutral-600 text-[10px] flex-shrink-0">·</span>
+                          <span className="text-neutral-500 text-[10px] flex-shrink-0">·</span>
                           <span className="text-[9px] font-mono text-neutral-400 flex-shrink-0">
                             {new Date(script.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                           </span>
