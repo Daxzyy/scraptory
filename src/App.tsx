@@ -258,7 +258,7 @@ function ViewScript() {
         </div>
 
         <div className="lg:w-4/5">
-          <div className="border border-white/10 overflow-hidden" style={{ background: '#0d0d0d' }}>
+          <div className="border border-white/10 overflow-hidden" style={{ background: '#161616' }}>
             <div className="flex items-center justify-between px-3 py-1.5 bg-white/[0.02] border-b border-white/5">
               <div className="flex items-center gap-3">
                 <div className="flex gap-1">
@@ -271,29 +271,31 @@ function ViewScript() {
                 </span>
               </div>
 
-              <div className="flex items-center divide-x divide-white/10 border border-white/10">
+              <div className="flex items-center gap-0">
                 <a
                   href={`/raw/${fileName}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center px-2.5 py-1 text-white/30 hover:text-white hover:bg-white/5 transition-all"
-                  title="Raw"
+                  className="flex items-center gap-1.5 px-3 py-1 text-white/30 hover:text-white hover:bg-white/5 transition-all text-[10px] font-bold tracking-tight"
                 >
                   <ExternalLink className="w-3 h-3" />
+                  Raw
                 </a>
+                <span className="text-white/10 text-xs">|</span>
                 <button
                   onClick={handleCopy}
-                  className="flex items-center px-2.5 py-1 text-white/30 hover:text-white hover:bg-white/5 transition-all"
-                  title="Copy"
+                  className="flex items-center gap-1.5 px-3 py-1 text-white/30 hover:text-white hover:bg-white/5 transition-all text-[10px] font-bold tracking-tight"
                 >
                   {copied ? <Check className="w-3 h-3 text-white/60" /> : <Copy className="w-3 h-3" />}
+                  {copied ? "Copied" : "Copy"}
                 </button>
+                <span className="text-white/10 text-xs">|</span>
                 <button
                   onClick={handleDownload}
-                  className="flex items-center px-2.5 py-1 text-white/30 hover:text-white hover:bg-white/5 transition-all"
-                  title="Download"
+                  className="flex items-center gap-1.5 px-3 py-1 text-white/30 hover:text-white hover:bg-white/5 transition-all text-[10px] font-bold tracking-tight"
                 >
                   <Download className="w-3 h-3" />
+                  Download
                 </button>
               </div>
             </div>
