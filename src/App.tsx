@@ -131,25 +131,26 @@ function Home() {
                 }}
                 className="border border-white/10 bg-white/[0.02] p-5 h-full hover:bg-white/[0.05] hover:border-white/30 transition-all duration-300 flex flex-col"
               >
-                <div className="flex justify-between items-start mb-2">
-                  <div className="flex items-center gap-2.5 overflow-hidden flex-1">
+                <div className="flex justify-between items-start mb-3">
+                  <div className="flex items-center gap-2.5 overflow-hidden flex-1 min-w-0">
                     <div className="p-1 border border-white/10 bg-white/5 flex-shrink-0">
                       <FileCode className="w-4 h-4 text-white/40 group-hover:text-white/80" />
                     </div>
-                    <h3 className="text-sm font-bold truncate text-white/80 group-hover:text-white tracking-tight">
-                      {script.name}
-                    </h3>
+                    <div className="flex items-center gap-2 overflow-hidden flex-1 min-w-0">
+                      <h3 className="text-sm font-bold truncate text-white/80 group-hover:text-white tracking-tight">
+                        {script.name}
+                      </h3>
+                      {script.date && (
+                        <span className="text-[9px] font-mono text-neutral-400 flex-shrink-0">
+                          {new Date(script.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <span className="text-[10px] font-mono border border-white/5 px-2 py-0.5 bg-white/5 opacity-40 flex-shrink-0 uppercase ml-2">
                     {script.language}
                   </span>
                 </div>
-
-                {script.date && (
-                  <p className="text-[9px] font-mono text-neutral-400 mb-2.5">
-                    {new Date(script.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
-                  </p>
-                )}
                 
                 <div className="flex items-start justify-between gap-3 flex-1">
                   <p className="text-xs text-neutral-400 font-medium leading-relaxed tracking-tight flex-1">
