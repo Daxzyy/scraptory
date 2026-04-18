@@ -41,7 +41,6 @@ function Home() {
     id: string;
     name: string;
     fileName: string;
-    description: string;
     explanation: string;
     language: string;
     author: string;
