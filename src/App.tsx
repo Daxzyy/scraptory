@@ -42,8 +42,10 @@ function Home() {
     name: string;
     fileName: string;
     description: string;
+    explanation: string;
     language: string;
     author: string;
+    date: string;
   }
 
   const [scripts, setScripts] = useState<Script[]>([]);
@@ -127,7 +129,7 @@ function Home() {
                   hidden: { opacity: 0, y: 10 },
                   visible: { opacity: 1, y: 0 }
                 }}
-                className="border border-white/10 bg-white/[0.02] p-5 h-full hover:bg-white/[0.05] hover:border-white/30 transition-all duration-300"
+                className="border border-white/10 bg-white/[0.02] p-5 h-full hover:bg-white/[0.05] hover:border-white/30 transition-all duration-300 flex flex-col"
               >
                 <div className="flex justify-between items-start mb-3">
                   <div className="flex items-center gap-2.5 overflow-hidden flex-1">
@@ -143,12 +145,18 @@ function Home() {
                   </span>
                 </div>
                 
-                <div className="flex items-start justify-between gap-3">
+                <div className="flex items-start justify-between gap-3 flex-1">
                   <p className="text-xs text-neutral-400 line-clamp-3 leading-relaxed tracking-tight flex-1">
-                    {script.description}
+                    {script.explanation}
                   </p>
                   <ChevronRight className="w-4 h-4 text-neutral-400 group-hover:text-white transition-all flex-shrink-0 mt-0.5" />
                 </div>
+
+                {script.date && (
+                  <p className="text-[9px] font-mono text-neutral-600 mt-3 pt-3 border-t border-white/5">
+                    {new Date(script.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                  </p>
+                )}
               </motion.div>
             </Link>
           ))}
