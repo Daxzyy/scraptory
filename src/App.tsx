@@ -22,32 +22,20 @@ import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-bg/80 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 group">
-          <div className="p-1.5 rounded-lg border border-white/10 bg-white/5 transition-colors group-hover:border-white/20">
-            <Terminal className="w-4 h-4 text-neutral-400" />
+      <div className="max-w-7xl mx-auto px-4 h-12 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-1.5 group">
+          <div className="p-0.5 border border-white/10 bg-white/5 transition-colors group-hover:border-white/20">
+            <img 
+              src="/icon.png" 
+              className="w-4 h-4 invert grayscale brightness-200" 
+              alt="Scraptory Logo" 
+              referrerPolicy="no-referrer"
+            />
           </div>
-          <span className="text-lg font-bold tracking-tight text-white">
+          <span className="text-sm font-bold tracking-tight text-white uppercase font-pixel decoration-none">
             Scraptory
           </span>
         </Link>
-
-        <div className="flex items-center gap-6 text-xs font-semibold">
-          <Link
-            to="/"
-            className="text-neutral-400 hover:text-white transition-colors"
-          >
-            Archive
-          </Link>
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-1.5 border border-white/10 rounded-full hover:bg-white/5 transition-colors"
-          >
-            <Github className="w-3.5 h-3.5 text-neutral-400" />
-          </a>
-        </div>
       </div>
     </nav>
   );
@@ -88,26 +76,26 @@ function Home() {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
+    <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
         <motion.div
-           initial={{ opacity: 0, y: -10 }}
-           animate={{ opacity: 1, y: 0 }}
+           initial={{ opacity: 0, x: -10 }}
+           animate={{ opacity: 1, x: 0 }}
         >
-          <h1 className="text-3xl font-bold tracking-tight mb-2 text-white">
+          <h1 className="text-base font-bold tracking-tight mb-0.5 text-white font-pixel">
             Scraptory <span className="text-white/10">/</span>
           </h1>
-          <p className="text-neutral-400 text-sm max-w-md">
+          <p className="text-neutral-500 text-[10px] max-w-md leading-tight font-lexend tracking-tight">
             A collection of curated scraping scripts for developers and data enthusiasts.
           </p>
         </motion.div>
 
-        <div className="relative w-full md:w-80">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+        <div className="relative w-full md:w-64">
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-white/20" />
           <input
             type="text"
-            placeholder="Search script archive..."
-            className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:border-white/20 transition-all shadow-inner"
+            placeholder="Search archive..."
+            className="w-full bg-white/5 border border-white/10 rounded-none pl-8 pr-4 py-1.5 text-[10px] focus:outline-none focus:border-white/30 transition-all shadow-inner"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -115,14 +103,14 @@ function Home() {
       </div>
 
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="h-64 glass-card rounded-xl animate-pulse" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="h-40 border border-white/5 bg-white/5 animate-pulse" />
           ))}
         </div>
       ) : (
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
           initial="hidden"
           animate="visible"
           variants={{
@@ -130,7 +118,7 @@ function Home() {
             visible: {
               opacity: 1,
               transition: {
-                staggerChildren: 0.1
+                staggerChildren: 0.05
               }
             }
           }}
@@ -139,37 +127,39 @@ function Home() {
             <motion.div
               key={script.id}
               variants={{
-                hidden: { opacity: 0, y: 20 },
+                hidden: { opacity: 0, y: 10 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="group glass-card rounded-xl p-6 flex flex-col justify-between"
+              className="group border border-white/10 bg-white/[0.02] p-4 flex flex-col justify-between hover:bg-white/[0.05] hover:border-white/30 transition-all duration-300"
             >
               <div>
-                <div className="flex justify-between items-start mb-4">
-                  <div className="p-2 bg-white/5 rounded-lg border border-white/10 group-hover:border-white/30 transition-colors">
-                    <Code2 className="w-5 h-5 text-white/70" />
+                <div className="flex justify-between items-start mb-2.5">
+                  <div className="flex items-center gap-2.5 overflow-hidden">
+                    <div className="p-1 border border-white/10 bg-white/5 flex-shrink-0">
+                      <FileCode className="w-3.5 h-3.5 text-white/40 group-hover:text-white/80" />
+                    </div>
+                    <h3 className="text-xs font-bold truncate text-white/80 group-hover:text-white tracking-tight">
+                      {script.name}
+                    </h3>
                   </div>
-                  <span className="text-[10px] font-mono border border-white/10 px-2 py-1 rounded bg-white/5 opacity-60">
+                  <span className="text-[8px] font-mono border border-white/5 px-1 py-0.5 bg-white/5 opacity-40 flex-shrink-0 uppercase">
                     {script.language}
                   </span>
                 </div>
-                <h3 className="text-lg font-semibold mb-1.5 transition-colors group-hover:text-white">
-                  {script.name}
-                </h3>
-                <p className="text-xs text-neutral-400 line-clamp-2 mb-4 leading-relaxed">
+                <p className="text-[10px] text-neutral-500 line-clamp-2 mb-3 leading-relaxed tracking-tight">
                   {script.description}
                 </p>
               </div>
 
-              <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-                <span className="text-[10px] text-neutral-500 font-medium">
+              <div className="flex items-center justify-between mt-auto pt-2.5 border-t border-white/5">
+                <span className="text-[9px] text-neutral-600 font-medium">
                   by {script.author}
                 </span>
                 <Link
                   to={`/view/${script.fileName}`}
-                  className="flex items-center gap-1 text-[11px] font-bold tracking-wide hover:gap-1.5 transition-all text-neutral-300 hover:text-white"
+                  className="p-1 border border-white/10 hover:border-white/40 transition-all text-neutral-500 hover:text-white bg-white/5"
                 >
-                  View Code <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
             </motion.div>
@@ -253,99 +243,99 @@ function ViewScript() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
-      <Link to="/" className="inline-flex items-center gap-2 text-neutral-500 hover:text-white transition-colors mb-6 group text-xs font-medium">
-        <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+    <div className="max-w-7xl mx-auto px-4 py-6">
+      <Link to="/" className="inline-flex items-center gap-1.5 text-neutral-500 hover:text-white transition-colors mb-4 group text-[10px] font-bold uppercase tracking-wider">
+        <ArrowLeft className="w-3 h-3 group-hover:-translate-x-0.5 transition-transform" />
         back to home
       </Link>
 
-      <div className="flex flex-col lg:flex-row gap-8">
-        <div className="lg:w-1/4">
+      <div className="flex flex-col lg:flex-row gap-6">
+        <div className="lg:w-1/5">
           <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="glass-card rounded-2xl p-6 sticky top-24"
+            className="border border-white/10 bg-white/[0.02] p-4 sticky top-20"
           >
-            <div className="p-2.5 bg-white/5 border border-white/10 rounded-lg w-fit mb-4">
-              <FileCode className="w-5 h-5 text-neutral-300" />
+            <div className="p-1.5 bg-white/5 border border-white/10 w-fit mb-3">
+              <FileCode className="w-4 h-4 text-neutral-400" />
             </div>
-            <h1 className="text-xl font-bold mb-1 break-all">{fileName}</h1>
-            <p className="text-[10px] text-neutral-500 mb-6 uppercase tracking-widest font-semibold">
+            <h1 className="text-sm font-bold mb-0.5 break-all text-white/90">{fileName}</h1>
+            <p className="text-[9px] text-neutral-500 mb-4 uppercase tracking-widest font-bold">
               Source Payload
             </p>
 
-            <div className="space-y-2.5">
-              <button onClick={handleCopy} className="btn-primary w-full flex items-center justify-center gap-2 text-[11px] font-bold tracking-tight">
-                {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+            <div className="space-y-1.5">
+              <button onClick={handleCopy} className="btn-primary w-full flex items-center justify-center gap-1.5 py-1.5 text-[10px] font-bold tracking-tight rounded-none">
+                {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                 {copied ? "Copied" : "Copy"}
               </button>
-              <button onClick={handleDownload} className="btn-secondary w-full flex items-center justify-center gap-2 text-[11px] font-bold tracking-tight">
-                <Download className="w-3.5 h-3.5" />
+              <button onClick={handleDownload} className="btn-secondary w-full flex items-center justify-center gap-1.5 py-1.5 text-[10px] font-bold tracking-tight rounded-none bg-white/5 border-white/10">
+                <Download className="w-3 h-3" />
                 Download
               </button>
               <a 
                 href={`/raw/${fileName}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-secondary w-full flex items-center justify-center gap-2 text-[11px] font-bold tracking-tight"
+                className="btn-secondary w-full flex items-center justify-center gap-1.5 py-1.5 text-[10px] font-bold tracking-tight rounded-none bg-white/5 border-white/10"
               >
-                <ExternalLink className="w-3.5 h-3.5" />
+                <ExternalLink className="w-3 h-3" />
                 Raw
               </a>
             </div>
           </motion.div>
         </div>
 
-        <div className="lg:w-3/4 space-y-6">
+        <div className="lg:w-4/5 space-y-4">
           {scriptData?.explanation && (
             <motion.div 
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
-              className="glass-card rounded-2xl p-6"
+              className="border border-white/10 bg-white/[0.02] p-4"
             >
-              <h2 className="text-sm font-bold text-white mb-2 flex items-center gap-2">
-                <div className="w-1 h-3 bg-white/20 rounded-full" />
+              <h2 className="text-[10px] font-bold text-white mb-2 flex items-center gap-2 uppercase tracking-wider">
+                <div className="w-0.5 h-2 bg-white/20" />
                 Penjelasan Script
               </h2>
-              <p className="text-sm text-neutral-400 leading-relaxed font-medium">
+              <p className="text-[11px] text-neutral-500 leading-relaxed font-medium">
                 {scriptData.explanation}
               </p>
             </motion.div>
           )}
 
-          <div className="glass-card rounded-2xl overflow-hidden border-white/5">
-            <div className="flex items-center justify-between px-5 py-2.5 bg-white/[0.02] border-b border-white/5">
-              <div className="flex items-center gap-3">
+          <div className="border border-white/10 bg-black overflow-hidden">
+            <div className="flex items-center justify-between px-3 py-1.5 bg-white/[0.03] border-b border-white/5">
+              <div className="flex items-center gap-2">
                 <div className="flex gap-1">
-                  <div className="w-2.5 h-2.5 rounded-full bg-white/5" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-white/5" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-white/5" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
                 </div>
-                <span className="text-[10px] font-mono text-neutral-500 ml-3 hidden md:inline tracking-tight">
+                <span className="text-[9px] font-mono text-neutral-500 ml-2 hidden md:inline tracking-tight">
                   {fileName} — {loading ? "..." : `${code.split('\n').length} lines`}
                 </span>
               </div>
-              <Terminal className="w-3.5 h-3.5 text-white/10" />
+              <Terminal className="w-3 h-3 text-white/20" />
             </div>
 
             <div className="relative">
               {loading ? (
-                <div className="p-8 space-y-4">
+                <div className="p-4 space-y-2">
                   {[1, 2, 3, 4, 5].map(i => (
-                    <div key={i} className="h-4 bg-white/5 rounded animate-pulse w-full" style={{ width: `${Math.random() * 40 + 60}%` }} />
+                    <div key={i} className="h-3 bg-white/5 animate-pulse w-full" style={{ width: `${Math.random() * 40 + 60}%` }} />
                   ))}
                 </div>
               ) : (
-                <div className="text-[13px] font-mono scrollbar-thin scrollbar-thumb-white/10 overflow-hidden">
+                <div className="text-[11px] font-mono scrollbar-thin scrollbar-thumb-white/10 overflow-hidden">
                   <SyntaxHighlighter
                     language={scriptData?.language?.toLowerCase() || "javascript"}
                     style={vscDarkPlus}
                     customStyle={{
                       margin: 0,
-                      padding: '1.5rem',
+                      padding: '1rem',
                       background: 'transparent',
                       fontSize: 'inherit',
-                      lineHeight: 'inherit',
+                      lineHeight: '1.4',
                     }}
                     codeTagProps={{
                       style: {
