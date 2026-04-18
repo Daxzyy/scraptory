@@ -12,7 +12,8 @@ import {
   Check, 
   Terminal,
   FileCode,
-  Github
+  Github,
+  ChevronRight
 } from "lucide-react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -101,7 +102,7 @@ function Home() {
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-40 border border-white/5 bg-white/5 animate-pulse" />
+            <div key={i} className="h-28 border border-white/5 bg-white/5 animate-pulse" />
           ))}
         </div>
       ) : (
@@ -126,36 +127,34 @@ function Home() {
                 hidden: { opacity: 0, y: 10 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="group border border-white/10 bg-white/[0.02] p-4 flex flex-col justify-between hover:bg-white/[0.05] hover:border-white/30 transition-all duration-300"
+              className="group border border-white/10 bg-white/[0.02] p-3 flex flex-col justify-between hover:bg-white/[0.05] hover:border-white/30 transition-all duration-300"
             >
               <div>
-                <div className="flex justify-between items-start mb-2.5">
-                  <div className="flex items-center gap-2.5 overflow-hidden">
-                    <div className="p-1 border border-white/10 bg-white/5 flex-shrink-0">
-                      <FileCode className="w-3.5 h-3.5 text-white/40 group-hover:text-white/80" />
+                <div className="flex justify-between items-start mb-2">
+                  <div className="flex items-center gap-2 overflow-hidden flex-1">
+                    <div className="p-0.5 border border-white/10 bg-white/5 flex-shrink-0">
+                      <FileCode className="w-3 h-3 text-white/40 group-hover:text-white/80" />
                     </div>
                     <h3 className="text-xs font-bold truncate text-white/80 group-hover:text-white tracking-tight">
                       {script.name}
                     </h3>
                   </div>
-                  <span className="text-[8px] font-mono border border-white/5 px-1 py-0.5 bg-white/5 opacity-40 flex-shrink-0 uppercase">
+                  <span className="text-[8px] font-mono border border-white/5 px-1 py-0.5 bg-white/5 opacity-40 flex-shrink-0 uppercase ml-2">
                     {script.language}
                   </span>
                 </div>
-                <p className="text-[10px] text-neutral-500 line-clamp-2 mb-3 leading-relaxed tracking-tight">
+                <p className="text-[10px] text-neutral-500 line-clamp-2 mb-2 leading-relaxed tracking-tight">
                   {script.description}
                 </p>
               </div>
 
-              <div className="flex items-center justify-between mt-auto pt-2.5 border-t border-white/5">
-                <span className="text-[9px] text-neutral-600 font-medium">
-                  by {script.author}
-                </span>
+              <div className="flex items-center justify-end mt-auto pt-2 border-t border-white/5">
                 <Link
                   to={`/view/${script.fileName}`}
-                  className="p-1 border border-white/10 hover:border-white/40 transition-all text-neutral-500 hover:text-white bg-white/5"
+                  className="text-neutral-500 hover:text-white transition-all flex items-center gap-1 text-[9px] font-medium uppercase tracking-wider"
                 >
-                  <ArrowRight className="w-3 h-3" />
+                  <span>View</span>
+                  <ChevronRight className="w-3 h-3" />
                 </Link>
               </div>
             </motion.div>
