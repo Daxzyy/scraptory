@@ -80,7 +80,7 @@ function Home() {
             Scraptory <span className="text-white/10">/</span>
           </h1>
           <p className="text-neutral-400 text-sm max-w-md leading-relaxed font-lexend tracking-tight">
-            A collection of curated scraping scripts for developers and data enthusiasts.
+            a collection of snippets, scripts, and tools for personal projects
           </p>
         </motion.div>
 
