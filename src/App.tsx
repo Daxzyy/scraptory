@@ -19,6 +19,12 @@ function formatSize(bytes: number): string {
   return `${(bytes / 1024).toFixed(2)} KB`;
 }
 
+function truncate(str: string, max: number): string {
+  const chars = [...str];
+  if (chars.length <= max) return str;
+  return chars.slice(0, max).join('') + '...';
+}
+
 function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-bg/80 backdrop-blur-md">
@@ -153,7 +159,7 @@ function Home() {
 
                 <div className="flex items-start justify-between gap-3 flex-1">
                   <p className="text-xs text-neutral-400 font-medium leading-relaxed tracking-tight flex-1">
-                    {script.explanation.length > 45 ? script.explanation.slice(0, 45) + '...' : script.explanation}
+                    {truncate(script.explanation, 45)}
                   </p>
                   <ChevronRight className="w-4 h-4 text-neutral-400 group-hover:text-white transition-all flex-shrink-0 mt-0.5" />
                 </div>
@@ -255,18 +261,18 @@ function ViewScript() {
             className="border border-white/10 bg-white/[0.02] p-4 sticky top-20"
           >
             <div className="p-1.5 bg-white/5 border border-white/10 w-fit mb-3">
-              <FileCode className="w-4 h-4 text-neutral-400" />
+              <FileCode className="w-5 h-5 text-neutral-400" />
             </div>
             <h1 className="text-sm font-bold mb-0.5 break-all text-white/90">{fileName}</h1>
 
             {scriptData?.explanation && (
-              <p className="text-[10px] text-neutral-500 font-medium leading-relaxed mt-2">
+              <p className="text-xs text-neutral-400 font-medium leading-relaxed mt-2">
                 {scriptData.explanation}
               </p>
             )}
 
             {!loading && code && (
-              <p className="text-[9px] text-neutral-400 font-mono tracking-tight mt-3">
+              <p className="text-[10px] text-neutral-400 font-mono tracking-tight mt-3">
                 {formatSize(new Blob([code]).size)}
                 {scriptData?.date && (
                   <> · {new Date(scriptData.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</>
