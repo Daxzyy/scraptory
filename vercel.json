@@ -1,6 +1,17 @@
 {
   "rewrites": [
     {
+      "source": "/view/:fileName",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": "(?i).*(whatsapp|facebookexternalhit|twitterbot|slackbot|linkedinbot|discordbot|telegrambot).*"
+        }
+      ],
+      "destination": "/api/og?fileName=:fileName"
+    },
+    {
       "source": "/raw/(.*)",
       "destination": "/scripts/$1"
     },
