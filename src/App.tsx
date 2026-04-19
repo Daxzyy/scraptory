@@ -14,6 +14,11 @@ import {
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
+function formatSize(bytes: number): string {
+  if (bytes < 1024) return `${bytes} bytes`;
+  return `${(bytes / 1024).toFixed(2)} KB`;
+}
+
 function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-bg/80 backdrop-blur-md">
@@ -262,7 +267,7 @@ function ViewScript() {
 
             {!loading && code && (
               <p className="text-[9px] text-neutral-400 font-mono tracking-tight mt-3">
-                {new Blob([code]).size.toLocaleString()} bytes
+                {formatSize(new Blob([code]).size)}
                 {scriptData?.date && (
                   <> · {new Date(scriptData.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</>
                 )}
