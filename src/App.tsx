@@ -19,10 +19,10 @@ function Navbar() {
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-bg/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2.5 group">
-          <div className="border border-white/10 bg-white transition-colors group-hover:border-white/20 rounded-full overflow-hidden">
+          <div className="border border-white/10 bg-white transition-colors group-hover:border-white/20 rounded-md overflow-hidden">
             <img
               src="/icon.png"
-              className="w-9 h-9 rounded-full select-none pointer-events-none"
+              className="w-9 h-9 rounded-md select-none pointer-events-none"
               alt="Scraptory Logo"
               draggable={false}
               onContextMenu={(e) => e.preventDefault()}
@@ -89,7 +89,7 @@ function Home() {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
           <input
             type="text"
-            placeholder="Search archive..."
+            placeholder="Search snippets..."
             className="w-full bg-white/5 border border-white/10 rounded-none pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-white/30 transition-all shadow-inner"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
