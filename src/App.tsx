@@ -39,7 +39,7 @@ function Navbar() {
               onContextMenu={(e) => e.preventDefault()}
             />
           </div>
-          <span style={{ fontFamily: "'Martian Mono', monospace", fontWeight: 700, letterSpacing: '0.05em' }} className="text-xl text-white uppercase decoration-none">
+          <span style={{ fontFamily: "'Ubuntu Mono', monospace", fontWeight: 700, letterSpacing: '0.05em' }} className="text-xl text-white">
             Codetory
           </span>
         </Link>
