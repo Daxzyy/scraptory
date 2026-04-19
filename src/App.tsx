@@ -25,6 +25,20 @@ function truncate(str: string, max: number): string {
   return chars.slice(0, max).join('') + '...';
 }
 
+function LangIcon({ language, className = "w-4 h-4" }: { language?: string; className?: string }) {
+  const lang = (language || "").toLowerCase();
+  const map: Record<string, string> = {
+    javascript: "/file-js.svg",
+    typescript: "/file-ts.svg",
+    python: "/file-py.svg",
+  };
+  const src = map[lang];
+  if (src) {
+    return <img src={src} alt={lang} className={className} draggable={false} />;
+  }
+  return <FileCode className={`${className} text-white/40`} />;
+}
+
 function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-bg/80 backdrop-blur-md">
@@ -139,7 +153,7 @@ function Home() {
                 <div className="flex justify-between items-start mb-3">
                   <div className="flex items-center gap-2.5 flex-1 min-w-0">
                     <div className="p-1 border border-white/10 bg-white/5 flex-shrink-0">
-                      <FileCode className="w-4 h-4 text-white/40 group-hover:text-white/80" />
+                      <LangIcon language={script.language} className="w-4 h-4" />
                     </div>
                     <div className="flex flex-col gap-0.5 flex-1 min-w-0">
                       <h3 className="text-sm font-bold text-white/80 group-hover:text-white tracking-tight leading-snug">
@@ -261,7 +275,7 @@ function ViewScript() {
             className="border border-white/10 bg-white/[0.02] p-4 sticky top-20"
           >
             <div className="p-1.5 bg-white/5 border border-white/10 w-fit mb-3">
-              <FileCode className="w-5 h-5 text-neutral-400" />
+              <LangIcon language={scriptData?.language} className="w-5 h-5" />
             </div>
             <h1 className="text-sm font-bold mb-0.5 break-all text-white/90">{fileName}</h1>
 
