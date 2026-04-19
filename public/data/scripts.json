@@ -88,5 +88,14 @@
   "language": "JavaScript",
   "author": "Givy",
   "date": "2026-04-19"
-  }
+  },
+  {
+  "id": "11",
+  "name": "Cek Kuota Axis",
+  "fileName": "cekaxis.js",
+  "explanation": "Cek info kartu dan sisa kuota Axis/XL dari nomor HP.",
+  "language": "JavaScript",
+  "author": "Givy",
+  "date": "2026-04-19"
+}
 ]
