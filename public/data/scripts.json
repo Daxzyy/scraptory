@@ -27,75 +27,84 @@
     "date": "2026-04-18"
   },
   {
-  "id": "4",
-  "name": "Domain Finder",
-  "fileName": "domain-finder.js",
-  "explanation": "Cari dan tampilkan domain berdasarkan kata kunci.",
-  "language": "JavaScript",
-  "author": "Givy",
-  "date": "2026-04-18"
-},
-  {
-  "id": "5",
-  "name": "Remove Watermark",
-  "fileName": "removewm.js",
-  "explanation": "Hapus watermark dari gambar secara otomatis.",
-  "language": "JavaScript",
-  "author": "Givy",
-  "date": "2026-04-18"
+    "id": "4",
+    "name": "Domain Finder",
+    "fileName": "domain-finder.js",
+    "explanation": "Cari dan tampilkan domain berdasarkan kata kunci.",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-04-18"
   },
   {
-  "id": "6",
-  "name": "Calorie Checker",
-  "fileName": "calories.js",
-  "explanation": "Cek kalori makanan dari gambar",
-  "language": "JavaScript",
-  "author": "Givy",
-  "date": "2026-04-18"
-},
-  {
-  "id": "7",
-  "name": "Acode Plugin",
-  "fileName": "acode-plugin.js",
-  "explanation": "Cari, lihat, dan ambil data plugin Acode.",
-  "language": "JavaScript",
-  "author": "Givy",
-  "date": "2026-04-18"
-},
-  {
-  "id": "8",
-  "name": "Alight Motion",
-  "fileName": "alight-motion.js",
-  "explanation": "Login, ambil metadata, dan download preset Alight Motion.",
-  "language": "JavaScript",
-  "author": "Givy",
-  "date": "2026-04-18"
-},
-  {
-  "id": "9",
-  "name": "XNXX Video",
-  "fileName": "xnxx.js",
-  "explanation": "Cari dan ambil data video dari XNXX termasuk detail dan link stream. btw ini kesukaan ikram jir🤭",
-  "language": "JavaScript",
-  "author": "Givy",
-  "date": "2026-04-19"
-},
-  {
-  "id": "10",
-  "name": "Nekopoi",
-  "fileName": "nekopoi.js",
-  "explanation": "gaperlu dijelasin, intinya ini kesukaan faiz🤭😜",
-  "language": "JavaScript",
-  "author": "Givy",
-  "date": "2026-04-19"
+    "id": "5",
+    "name": "Remove Watermark",
+    "fileName": "removewm.js",
+    "explanation": "Hapus watermark dari gambar secara otomatis.",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-04-18"
   },
   {
-  "id": "11",
-  "name": "Cek Kuota Axis",
-  "fileName": "cekaxis.js",
-  "explanation": "Cek info kartu dan sisa kuota Axis/XL dari nomor HP.",
-  "language": "JavaScript",
-  "author": "Givy",
-  "date": "2026-04-19"
-}
+    "id": "6",
+    "name": "Calorie Checker",
+    "fileName": "calories.js",
+    "explanation": "Cek kalori makanan dari gambar",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-04-18"
+  },
+  {
+    "id": "7",
+    "name": "Acode Plugin",
+    "fileName": "acode-plugin.js",
+    "explanation": "Cari, lihat, dan ambil data plugin Acode.",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-04-18"
+  },
+  {
+    "id": "8",
+    "name": "Alight Motion",
+    "fileName": "alight-motion.js",
+    "explanation": "Login, ambil metadata, dan download preset Alight Motion.",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-04-18"
+  },
+  {
+    "id": "9",
+    "name": "XNXX Video",
+    "fileName": "xnxx.js",
+    "explanation": "Cari dan ambil data video dari XNXX termasuk detail dan link stream. btw ini kesukaan ikram jir🤭",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-04-19"
+  },
+  {
+    "id": "10",
+    "name": "Nekopoi",
+    "fileName": "nekopoi.js",
+    "explanation": "gaperlu dijelasin, intinya ini kesukaan faiz🤭😜",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-04-19"
+  },
+  {
+    "id": "11",
+    "name": "Cek Kuota Axis",
+    "fileName": "cekaxis.js",
+    "explanation": "Cek info kartu dan sisa kuota Axis/XL dari nomor HP.",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-04-19"
+  },
+  {
+    "id": "12",
+    "name": "Upscale Image",
+    "fileName": "imglarger.js",
+    "explanation": "Upscale, enhance, or sharpen images using ImgLarger.",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-04-19"
+  }
 ]
