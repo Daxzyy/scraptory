@@ -291,7 +291,6 @@ function ViewScript() {
 
               <div className="flex items-center gap-0">
                 
-                  <a 
                   href={`/raw/${fileName}`}
                   target="_blank"
                   rel="noopener noreferrer"
