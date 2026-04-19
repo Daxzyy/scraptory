@@ -15,10 +15,10 @@ export default async function handler(req, res) {
     return res.status(404).send('Not found');
   }
 
-  const title = `${script.name} — Scraptory`;
+  const title = `${script.name} — Codetory`;
   const description = script.explanation;
   const url = `${baseUrl}/view/${fileName}`;
-  const image = `${baseUrl}/scraptory.png`;
+  const image = `${baseUrl}/codetory.png`;
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -34,7 +34,7 @@ export default async function handler(req, res) {
   <meta property="og:image" content="${image}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:site_name" content="Scraptory" />
+  <meta property="og:site_name" content="Codetory" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${title}" />
   <meta name="twitter:description" content="${description}" />
