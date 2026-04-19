@@ -106,5 +106,14 @@
     "language": "JavaScript",
     "author": "Givy",
     "date": "2026-04-19"
+  },
+  {
+    "id": "13",
+    "name": "Web Scanner",
+    "fileName": "web-scanner.js",
+    "explanation": "Scanner website untuk cek malware, SSL, CMS, dan blacklist.",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-04-19"
   }
 ]
