@@ -115,5 +115,14 @@
     "language": "JavaScript",
     "author": "Givy",
     "date": "2026-04-19"
+  },
+  {
+    "id": "14",
+    "name": "Threads Downloader",
+    "fileName": "threads-down.js",
+    "explanation": "Take media (photos/videos) and captions from Threads posts. (By Renzz)",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-04-19"
   }
 ]
