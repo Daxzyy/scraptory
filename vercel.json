@@ -1,7 +1,7 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/view/:fileName",
+      "src": "/view/(?<fileName>.*)",
       "has": [
         {
           "type": "header",
@@ -9,23 +9,10 @@
           "value": "(?i).*(whatsapp|facebookexternalhit|twitterbot|slackbot|linkedinbot|discordbot|telegrambot).*"
         }
       ],
-      "destination": "/api/og?fileName=:fileName"
+      "dest": "/api/og?fileName=$fileName"
     },
-    {
-      "source": "/raw/(.*)",
-      "destination": "/scripts/$1"
-    },
-    {
-      "source": "/(scripts/.*)",
-      "destination": "/$1"
-    },
-    {
-      "source": "/(data/.*)",
-      "destination": "/$1"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "src": "/raw/(.*)", "dest": "/scripts/$1" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
