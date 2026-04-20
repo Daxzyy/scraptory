@@ -133,5 +133,14 @@
     "language": "JavaScript",
     "author": "Givy",
     "date": "2026-04-20"
-  }
+  },
+  {
+  "id": "16",
+  "name": "100K Kata",
+  "fileName": "kamus.json",
+  "explanation": "Kumpulan 100 ribu kata.",
+  "language": "JSON",
+  "author": "Givy",
+  "date": "2026-04-20"
+}
 ]
