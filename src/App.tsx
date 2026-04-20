@@ -385,7 +385,6 @@ function ViewScript() {
                   Download
                 </button>
               </div>
-            </div>
 
             <div className="relative">
               {loading ? (
