@@ -54,7 +54,7 @@ function Navbar() {
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-bg/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center group">
-          <img src="/codetory.svg" alt="Codetory" className="h-14 w-auto" draggable={false} />
+          <img src="/codetory.svg" alt="Codetory" className="h-16 w-auto" draggable={false} />
         </Link>
       </div>
     </nav>
@@ -97,7 +97,7 @@ function PaginatedCode({ code, language }: { code: string; language: string }) {
       {totalPages > 1 && (
         <div className="flex items-center justify-between px-4 py-2.5 border-t border-white/5 bg-white/[0.02]">
           <span className="text-[10px] font-mono text-neutral-500">
-            Page {page} / {totalPages} · lines {(page - 1) * LINES_PER_PAGE + 1}–{Math.min(page * LINES_PER_PAGE, lines.length)} of {lines.length}
+            Page {page} / {totalPages}
           </span>
           <div className="flex items-center gap-1">
             <button
