@@ -124,5 +124,14 @@
     "language": "JavaScript",
     "author": "Givy",
     "date": "2026-04-19"
+  },
+  {
+    "id": "15",
+    "name": "PromptHub Detail",
+    "fileName": "prompthub-detail.js",
+    "explanation": "Mengambil detail prompt, metadata, dan statistik dari halaman AI PromptHub",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-04-20"
   }
 ]
