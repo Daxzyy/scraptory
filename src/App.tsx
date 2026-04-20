@@ -94,17 +94,13 @@ function LargeFileViewer({ code, language }: { code: string; language: string })
             className="absolute bottom-full left-0 right-0 h-28 pointer-events-none"
             style={{
               background: 'linear-gradient(to bottom, transparent, #161616)',
-              backdropFilter: 'blur(0px)',
             }}
           />
           <button
             onClick={() => setVisibleCount(c => Math.min(c + LINES_PER_CHUNK, lines.length))}
-            className="relative w-full flex flex-col items-center justify-center gap-1.5 py-4 border-t border-white/10 bg-[#161616] hover:bg-white/[0.04] transition-all duration-200 group"
+            className="relative w-full flex items-center justify-center py-3 border-t border-white/20 bg-transparent hover:bg-white/[0.04] transition-all duration-200 group"
           >
-            <ChevronRight className="w-4 h-4 rotate-90 text-white/40 group-hover:text-white/80 group-hover:translate-y-0.5 transition-all duration-200" />
-            <span className="text-[9px] font-mono uppercase tracking-widest text-white/30 group-hover:text-white/60 transition-colors duration-200">
-              load more · {lines.length - visibleCount} lines remaining
-            </span>
+            <ChevronRight className="w-6 h-6 rotate-90 text-white/50 group-hover:text-white group-hover:translate-y-0.5 transition-all duration-200" />
           </button>
         </div>
       )}
@@ -363,7 +359,7 @@ function ViewScript() {
               </span>
 
               <div className="flex items-center gap-0">
-                <a
+                
                   href={"/raw/" + fileName}
                   target="_blank"
                   rel="noopener noreferrer"
