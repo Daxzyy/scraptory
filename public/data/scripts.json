@@ -135,12 +135,21 @@
     "date": "2026-04-20"
   },
   {
-  "id": "16",
-  "name": "100K Kata",
-  "fileName": "kamus.json",
-  "explanation": "Kumpulan 100 ribu kata.",
-  "language": "JSON",
-  "author": "Givy",
-  "date": "2026-04-20"
-}
+    "id": "16",
+    "name": "100K Kata",
+    "fileName": "kamus.json",
+    "explanation": "Kumpulan 100 ribu kata.",
+    "language": "JSON",
+    "author": "Givy",
+    "date": "2026-04-20"
+  },
+  {
+    "id": "17",
+    "name": "SeeGore Video",
+    "fileName": "seegore.js",
+    "explanation": "Cari dan dapetin video\" gore dari SeeGore btw ini kesukaan Fallenegro😈",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-04-20"
+  }
 ]
