@@ -107,7 +107,7 @@ function Home() {
            animate={{ opacity: 1, x: 0 }}
         >
           <h1 className="text-xl font-bold tracking-tight mb-1 text-white font-pixel">
-            Codetory <span className="text-white/10">/</span>
+            <span className="text-white/40">givy's</span> <span className="text-white/10">/</span> codetory
           </h1>
           <p className="text-neutral-400 text-sm max-w-md leading-relaxed font-lexend tracking-tight">
             a collection of snippets, scripts, and tools for personal projects
