@@ -374,6 +374,7 @@ function Submit() {
   const [password, setPassword] = useState("");
   const [authed, setAuthed] = useState(false);
   const [authError, setAuthError] = useState(false);
+  const [authLoading, setAuthLoading] = useState(false);
   const [form, setForm] = useState({
     name: "",
     fileName: "",
@@ -385,12 +386,24 @@ function Submit() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const handleAuth = () => {
-    if (password === import.meta.env.VITE_SUBMIT_PASSWORD) {
-      setAuthed(true);
-      setAuthError(false);
-    } else {
+  const handleAuth = async () => {
+    setAuthLoading(true);
+    setAuthError(false);
+    try {
+      const res = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      if (res.ok) {
+        setAuthed(true);
+      } else {
+        setAuthError(true);
+      }
+    } catch {
       setAuthError(true);
+    } finally {
+      setAuthLoading(false);
     }
   };
 
@@ -416,7 +429,7 @@ function Submit() {
       const res = await fetch("/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, fileName }),
+        body: JSON.stringify({ ...form, fileName, password }),
       });
 
       const data = await res.json();
@@ -438,23 +451,30 @@ function Submit() {
       </Link>
 
       {!authed ? (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-4 max-w-xs">
-          <h1 className="text-lg font-bold text-white font-pixel">Password</h1>
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            onKeyDown={e => e.key === "Enter" && handleAuth()}
-            placeholder="Enter password..."
-            className="bg-white/5 border border-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:border-white/30 transition-all"
-          />
-          {authError && <p className="text-red-400 text-xs font-mono">Wrong password.</p>}
-          <button
-            onClick={handleAuth}
-            className="px-4 py-2 border border-white/20 bg-white/5 hover:bg-white/10 text-white text-sm font-bold transition-all"
-          >
-            Enter
-          </button>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex flex-col items-center justify-center min-h-[60vh]"
+        >
+          <div className="flex flex-col gap-4 w-full max-w-xs">
+            <h1 className="text-lg font-bold text-white font-pixel text-center">Password</h1>
+            <input
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              onKeyDown={e => e.key === "Enter" && handleAuth()}
+              placeholder="Enter password..."
+              className="bg-white/5 border border-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:border-white/30 transition-all text-center"
+            />
+            {authError && <p className="text-red-400 text-xs font-mono text-center">Wrong password.</p>}
+            <button
+              onClick={handleAuth}
+              disabled={authLoading}
+              className="px-4 py-2 border border-white/20 bg-white/5 hover:bg-white/10 text-white text-sm font-bold transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {authLoading ? <><Loader2 className="w-4 h-4 animate-spin" /> Checking...</> : "Enter"}
+            </button>
+          </div>
         </motion.div>
       ) : (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
@@ -494,6 +514,7 @@ function Submit() {
                   className="w-full appearance-none bg-white/5 border border-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:border-white/30 transition-all pr-8"
                 >
                   <option value="JavaScript">JavaScript</option>
+                  <option value="TypeScript">TypeScript</option>
                   <option value="Python">Python</option>
                   <option value="JSON">JSON</option>
                 </select>
