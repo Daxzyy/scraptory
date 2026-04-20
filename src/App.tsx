@@ -26,7 +26,8 @@ const LINES_PER_PAGE = 100;
 
 function formatSize(bytes: number): string {
   if (bytes < 1024) return `${bytes} bytes`;
-  return `${(bytes / 1024).toFixed(2)} KB`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(2)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
 }
 
 function truncate(str: string, max: number): string {
@@ -54,7 +55,7 @@ function Navbar() {
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-bg/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center group">
-          <img src="/codetory.svg" alt="Codetory" className="h-16 w-auto" draggable={false} />
+          <img src="/codetory.svg" alt="Codetory" className="h-20 w-auto" draggable={false} />
         </Link>
       </div>
     </nav>
