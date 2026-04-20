@@ -358,7 +358,7 @@ function ViewScript() {
                 {loading ? "..." : `${code.split('\n').length} lines`}
               </span>
 
-              <div className="flex items-center gap-0">
+<div className="flex items-center gap-0">
                 <a
                   href={"/raw/" + fileName}
                   target="_blank"
@@ -681,4 +681,3 @@ export default function App() {
       </MainLayout>
     </Router>
   );
-}
