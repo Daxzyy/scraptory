@@ -68,7 +68,7 @@ function LargeFileViewer({ code, language }: { code: string; language: string })
   const visibleCode = lines.slice(0, visibleCount).join('\n');
 
   return (
-    <div>
+    <div className="relative">
       <div className="text-[11px] font-mono overflow-hidden">
         <SyntaxHighlighter
           language={language}
@@ -89,12 +89,24 @@ function LargeFileViewer({ code, language }: { code: string; language: string })
       </div>
 
       {!isFullyExpanded && (
-        <button
-          onClick={() => setVisibleCount(c => Math.min(c + LINES_PER_CHUNK, lines.length))}
-          className="w-full flex items-center justify-center py-2 border-t border-white/5 bg-white/[0.015] hover:bg-white/[0.04] text-white/20 hover:text-white/60 transition-all group"
-        >
-          <ChevronRight className="w-5 h-5 rotate-90 group-hover:translate-y-0.5 transition-transform" />
-        </button>
+        <div className="relative">
+          <div
+            className="absolute bottom-full left-0 right-0 h-28 pointer-events-none"
+            style={{
+              background: 'linear-gradient(to bottom, transparent, #161616)',
+              backdropFilter: 'blur(0px)',
+            }}
+          />
+          <button
+            onClick={() => setVisibleCount(c => Math.min(c + LINES_PER_CHUNK, lines.length))}
+            className="relative w-full flex flex-col items-center justify-center gap-1.5 py-4 border-t border-white/10 bg-[#161616] hover:bg-white/[0.04] transition-all duration-200 group"
+          >
+            <ChevronRight className="w-4 h-4 rotate-90 text-white/40 group-hover:text-white/80 group-hover:translate-y-0.5 transition-all duration-200" />
+            <span className="text-[9px] font-mono uppercase tracking-widest text-white/30 group-hover:text-white/60 transition-colors duration-200">
+              load more · {lines.length - visibleCount} lines remaining
+            </span>
+          </button>
+        </div>
       )}
     </div>
   );
