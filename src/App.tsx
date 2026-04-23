@@ -126,7 +126,7 @@ function Home() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
         <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}>
           <h1 className="text-xl font-bold tracking-tight mb-1 text-white font-pixel">
-            <span className="text-white/40">givy's</span> <span className="text-white/10">/</span> codetory
+            <a href="https://wa.me/62895423300395" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white/70 transition-colors">givy's</a> <span className="text-white/10">/</span> codetory
           </h1>
           <p className="text-neutral-400 text-sm max-w-md leading-relaxed font-lexend tracking-tight">
             a collection of snippets, scripts, and tools for personal projects
@@ -649,7 +649,7 @@ function MainLayout({ children }: { children: ReactNode }) {
       <footer className="border-t border-white/5 py-8 mt-auto">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-neutral-500 text-xs font-medium">
           <p>© 2026 Codetory</p>
-          <p>Built by <span className="text-neutral-300">Givy</span></p>
+          <p>Built by <a href="https://wa.me/62895423300395" target="_blank" rel="noopener noreferrer" className="text-neutral-300 hover:text-white transition-colors">Givy</a></p>
         </div>
       </footer>
     </div>
