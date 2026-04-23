@@ -13,6 +13,10 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "fileName is required" });
   }
 
+  if (!/^[\w\-]+\.(js|ts|py|json)$/.test(fileName)) {
+    return res.status(400).json({ error: "Invalid fileName" });
+  }
+
   const token = process.env.GITHUB_TOKEN;
   const owner = "Daxzyy";
   const repo = "codetory";
@@ -25,7 +29,6 @@ export default async function handler(req, res) {
   };
 
   try {
-    // Remove entry from scripts.json
     const scriptsJsonRes = await fetch(
       `https://api.github.com/repos/${owner}/${repo}/contents/public/data/scripts.json?ref=${branch}`,
       { headers }
@@ -59,7 +62,6 @@ export default async function handler(req, res) {
       }
     );
 
-    // Get SHA of the script file to delete
     const scriptFileRes = await fetch(
       `https://api.github.com/repos/${owner}/${repo}/contents/public/scripts/${fileName}?ref=${branch}`,
       { headers }
@@ -67,11 +69,9 @@ export default async function handler(req, res) {
     const scriptFileData = await scriptFileRes.json();
 
     if (!scriptFileData.sha) {
-      // File not found in repo, but metadata was already cleaned up — still OK
       return res.status(200).json({ success: true, note: "Metadata removed; script file not found in repo" });
     }
 
-    // Delete the script file
     await fetch(
       `https://api.github.com/repos/${owner}/${repo}/contents/public/scripts/${fileName}`,
       {

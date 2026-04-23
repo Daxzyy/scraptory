@@ -13,6 +13,10 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "name, fileName, and code are required" });
   }
 
+  if (!/^[\w\-]+\.(js|ts|py|json)$/.test(fileName)) {
+    return res.status(400).json({ error: "Invalid fileName" });
+  }
+
   const token = process.env.GITHUB_TOKEN;
   const owner = "Daxzyy";
   const repo = "codetory";

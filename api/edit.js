@@ -13,6 +13,10 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "fileName and code are required" });
   }
 
+  if (!/^[\w\-]+\.(js|ts|py|json)$/.test(fileName)) {
+    return res.status(400).json({ error: "Invalid fileName" });
+  }
+
   const token = process.env.GITHUB_TOKEN;
   const owner = "Daxzyy";
   const repo = "codetory";
@@ -25,7 +29,6 @@ export default async function handler(req, res) {
   };
 
   try {
-    // Update scripts.json metadata
     const scriptsJsonRes = await fetch(
       `https://api.github.com/repos/${owner}/${repo}/contents/public/data/scripts.json?ref=${branch}`,
       { headers }
@@ -64,7 +67,6 @@ export default async function handler(req, res) {
       }
     );
 
-    // Get current SHA of the script file
     const scriptFileRes = await fetch(
       `https://api.github.com/repos/${owner}/${repo}/contents/public/scripts/${fileName}?ref=${branch}`,
       { headers }
@@ -75,7 +77,6 @@ export default async function handler(req, res) {
       return res.status(404).json({ error: "Script file not found in repo" });
     }
 
-    // Update script file content
     const scriptContentBase64 = Buffer.from(code).toString("base64");
 
     await fetch(
