@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation, useParams, Link, u
 import { motion } from "motion/react";
 import { 
   Search, ArrowLeft, Copy, Download, ExternalLink, Check, FileCode,
-  ChevronRight, Plus, Loader2, Eye, EyeOff
+  ChevronRight, Plus, Loader2, Eye, EyeOff, FilePlus
 } from "lucide-react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -44,6 +44,13 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center group -ml-3">
           <img src="/codetory.svg" alt="Codetory" className="h-20 w-auto" draggable={false} />
+        </Link>
+        <Link
+          to="/submit"
+          className="flex items-center gap-1.5 px-3 py-1.5 border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/30 transition-all text-[11px] font-bold text-white/50 hover:text-white uppercase tracking-wider"
+        >
+          <FilePlus className="w-3 h-3" />
+          Submit
         </Link>
       </div>
     </nav>
