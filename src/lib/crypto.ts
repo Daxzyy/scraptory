@@ -13,7 +13,7 @@ async function getKey(): Promise<CryptoKey> {
 
 export async function decryptData(ciphertext: string): Promise<any> {
   const key = await getKey();
-  const combined = Uint8Array.from(atob(ciphertext), c => c.charCodeAt(0));
+  const combined = Uint8Array.from(Buffer.from(ciphertext, "base64"));
   const iv = combined.slice(0, 12);
   const data = combined.slice(12);
   const decrypted = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, data);
