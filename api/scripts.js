@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     const combined = new Uint8Array(12 + encrypted.byteLength);
     combined.set(iv);
     combined.set(new Uint8Array(encrypted), 12);
-    return btoa(String.fromCharCode(...combined));
+    return Buffer.from(combined).toString("base64");
   }
 
   try {
