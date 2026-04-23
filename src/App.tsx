@@ -1,6 +1,6 @@
-import { useState, useEffect, ReactNode } from "react";
+import { useState, useEffect, ReactNode, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation, useParams, Link, useNavigate } from "react-router-dom";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { 
   Search, ArrowLeft, Copy, Download, ExternalLink, Check, FileCode,
   ChevronRight, Plus, Loader2, Eye, EyeOff, FilePlus, Pencil, Trash2, X, ChevronDown
@@ -94,6 +94,70 @@ function LargeFileViewer({ code, language }: { code: string; language: string })
 
 type SortOption = "newest" | "a-z" | "z-a";
 
+function InlineDropdown({
+  label,
+  options,
+  value,
+  onChange,
+}: {
+  label: string;
+  options: { value: string; label: string }[];
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handler(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  const current = options.find(o => o.value === value);
+
+  return (
+    <div ref={ref} className="relative flex items-center gap-2">
+      <span className="text-[10px] font-mono text-white/25 uppercase tracking-widest select-none">{label}</span>
+      <button
+        onClick={() => setOpen(v => !v)}
+        className="flex items-center gap-1 text-[13px] font-bold text-white/60 hover:text-white/90 transition-colors"
+      >
+        {current?.label}
+        <ChevronDown className={`w-3 h-3 text-white/20 transition-transform duration-150 ${open ? "rotate-180" : ""}`} />
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -6, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.97 }}
+            transition={{ duration: 0.1 }}
+            className="absolute left-0 top-full mt-2 border border-white/10 bg-[#191919] z-50 min-w-[110px] shadow-2xl overflow-hidden"
+            style={{ borderRadius: 6 }}
+          >
+            {options.map(opt => (
+              <button
+                key={opt.value}
+                onClick={() => { onChange(opt.value); setOpen(false); }}
+                className={`w-full text-left px-3 py-2 text-[11px] font-bold uppercase tracking-wider transition-colors ${
+                  value === opt.value
+                    ? "text-white bg-white/[0.07]"
+                    : "text-white/35 hover:text-white hover:bg-white/[0.04]"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 function Home() {
   interface Script {
     id: string; name: string; fileName: string;
@@ -105,8 +169,6 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [sort, setSort] = useState<SortOption>("newest");
   const [langFilter, setLangFilter] = useState("all");
-  const [sortOpen, setSortOpen] = useState(false);
-  const [langOpen, setLangOpen] = useState(false);
 
   useEffect(() => {
     fetch("/api/scripts")
@@ -122,16 +184,18 @@ function Home() {
       });
   }, []);
 
-  useEffect(() => {
-    function handleClick() {
-      setSortOpen(false);
-      setLangOpen(false);
-    }
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
-  }, []);
-
   const availableLangs = Array.from(new Set(scripts.map(s => s.language))).sort();
+
+  const langOptions = [
+    { value: "all", label: "all" },
+    ...availableLangs.map(l => ({ value: l, label: l.toLowerCase() })),
+  ];
+
+  const sortOptions: { value: SortOption; label: string }[] = [
+    { value: "newest", label: "newest" },
+    { value: "a-z", label: "a–z" },
+    { value: "z-a", label: "z–a" },
+  ];
 
   const filteredScripts = scripts
     .filter(s =>
@@ -146,11 +210,9 @@ function Home() {
       return 0;
     });
 
-  const sortLabels: Record<SortOption, string> = { newest: "Newest", "a-z": "A–Z", "z-a": "Z–A" };
-
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-6">
         <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}>
           <h1 className="text-xl font-bold tracking-tight mb-1 text-white font-pixel">
             <a href="https://wa.me/62895423300395" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white/70 transition-colors">givy's</a> <span className="text-white/10">/</span> codetory
@@ -159,89 +221,45 @@ function Home() {
             a collection of snippets, scripts, and tools for personal projects
           </p>
         </motion.div>
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full md:w-auto">
-          <div className="relative w-full sm:w-80">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
-            <input
-              type="text"
-              placeholder="Search snippets..."
-              className="w-full bg-white/5 border border-white/10 rounded-none pl-10 pr-8 py-2.5 text-sm focus:outline-none focus:border-white/30 transition-all shadow-inner"
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-            />
-            {searchTerm && (
-              <button
-                onClick={() => setSearchTerm("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/70 transition-colors"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <div className="relative" onClick={e => e.stopPropagation()}>
-              <button
-                onClick={() => { setSortOpen(v => !v); setLangOpen(false); }}
-                className="flex items-center gap-1.5 px-3 py-2.5 border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all text-[11px] font-bold text-white/50 hover:text-white uppercase tracking-wider whitespace-nowrap"
-              >
-                {sortLabels[sort]}
-                <ChevronDown className="w-3 h-3" />
-              </button>
-              {sortOpen && (
-                <div className="absolute right-0 top-full mt-1 border border-white/10 bg-[#1a1a1a] z-50 min-w-[100px]">
-                  {(["newest", "a-z", "z-a"] as SortOption[]).map(opt => (
-                    <button
-                      key={opt}
-                      onClick={() => { setSort(opt); setSortOpen(false); }}
-                      className={`w-full text-left px-3 py-2 text-[11px] font-bold uppercase tracking-wider transition-all ${sort === opt ? "text-white bg-white/10" : "text-white/40 hover:text-white hover:bg-white/5"}`}
-                    >
-                      {sortLabels[opt]}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <div className="relative" onClick={e => e.stopPropagation()}>
-              <button
-                onClick={() => { setLangOpen(v => !v); setSortOpen(false); }}
-                className="flex items-center gap-1.5 px-3 py-2.5 border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all text-[11px] font-bold text-white/50 hover:text-white uppercase tracking-wider whitespace-nowrap"
-              >
-                {langFilter === "all" ? "Lang" : langFilter}
-                <ChevronDown className="w-3 h-3" />
-              </button>
-              {langOpen && (
-                <div className="absolute right-0 top-full mt-1 border border-white/10 bg-[#1a1a1a] z-50 min-w-[110px]">
-                  <button
-                    onClick={() => { setLangFilter("all"); setLangOpen(false); }}
-                    className={`w-full text-left px-3 py-2 text-[11px] font-bold uppercase tracking-wider transition-all ${langFilter === "all" ? "text-white bg-white/10" : "text-white/40 hover:text-white hover:bg-white/5"}`}
-                  >
-                    All
-                  </button>
-                  {availableLangs.map(lang => (
-                    <button
-                      key={lang}
-                      onClick={() => { setLangFilter(lang); setLangOpen(false); }}
-                      className={`w-full text-left px-3 py-2 text-[11px] font-bold uppercase tracking-wider transition-all ${langFilter === lang ? "text-white bg-white/10" : "text-white/40 hover:text-white hover:bg-white/5"}`}
-                    >
-                      {lang}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
       </div>
 
-      {!loading && (
-        <div className="mb-4">
-          <span className="text-[11px] font-mono text-white/20 uppercase tracking-wider">
-            {filteredScripts.length} {filteredScripts.length === 1 ? "file" : "files"}
-          </span>
+      <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="mb-2">
+        <div className="relative">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20" />
+          <input
+            type="text"
+            placeholder="Search files..."
+            className="w-full bg-white/[0.03] border border-white/[0.08] pl-11 pr-10 py-3.5 text-sm text-white/80 placeholder:text-white/20 focus:outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all"
+            style={{ borderRadius: 8 }}
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+          />
+          {searchTerm && (
+            <button
+              onClick={() => setSearchTerm("")}
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-white/20 hover:text-white/50 transition-colors"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
         </div>
-      )}
+      </motion.div>
+
+      <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="mb-8">
+        <div
+          className="flex items-center gap-4 px-4 py-3 bg-white/[0.03] border border-white/[0.08]"
+          style={{ borderRadius: 8 }}
+        >
+          <InlineDropdown label="Lang" options={langOptions} value={langFilter} onChange={setLangFilter} />
+          <div className="w-px h-3.5 bg-white/[0.08]" />
+          <InlineDropdown label="Sort" options={sortOptions} value={sort} onChange={(v) => setSort(v as SortOption)} />
+          <div className="ml-auto">
+            <span className="text-[13px] font-bold text-white/20 tabular-nums">
+              {loading ? "—" : `${filteredScripts.length} ${filteredScripts.length === 1 ? "file" : "files"}`}
+            </span>
+          </div>
+        </div>
+      </motion.div>
 
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
