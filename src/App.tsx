@@ -571,6 +571,78 @@ function ViewScript() {
   );
 }
 
+function RawScript() {
+  const { fileName } = useParams();
+  const [code, setCode] = useState<string | null>(null);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (!fileName) { setError(true); return; }
+    fetch(`/api/scripts?fileName=${fileName}`)
+      .then(res => res.json())
+      .then(async ({ d, error: err }) => {
+        if (err) throw new Error("not found");
+        const { code: rawCode } = await decryptData(d);
+        setCode(rawCode as string);
+      })
+      .catch(() => setError(true));
+  }, [fileName]);
+
+  useEffect(() => {
+    if (code === null && !error) return;
+    document.title = fileName || "raw";
+  }, [code, error, fileName]);
+
+  if (error) {
+    return (
+      <pre style={{
+        fontFamily: "monospace",
+        fontSize: 13,
+        color: "#f87171",
+        padding: "2rem",
+        background: "#0d0d0d",
+        minHeight: "100vh",
+        margin: 0,
+      }}>
+        404 — script not found
+      </pre>
+    );
+  }
+
+  if (code === null) {
+    return (
+      <pre style={{
+        fontFamily: "monospace",
+        fontSize: 13,
+        color: "#555",
+        padding: "2rem",
+        background: "#0d0d0d",
+        minHeight: "100vh",
+        margin: 0,
+      }}>
+        loading...
+      </pre>
+    );
+  }
+
+  return (
+    <pre style={{
+      fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+      fontSize: 13,
+      color: "#e2e8f0",
+      padding: "2rem",
+      background: "#0d0d0d",
+      minHeight: "100vh",
+      margin: 0,
+      whiteSpace: "pre",
+      overflowX: "auto",
+      lineHeight: 1.6,
+    }}>
+      {code}
+    </pre>
+  );
+}
+
 function SessionBadge({ onExpire }: { onExpire: () => void }) {
   const [remaining, setRemaining] = useState<number>(0);
 
@@ -621,6 +693,8 @@ function Submit() {
   const [form, setForm] = useState({ name: "", fileName: "", language: "JavaScript", explanation: "", code: "", author: "Givy" });
   const [fileBaseName, setFileBaseName] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const mirrorRef = useRef<HTMLSpanElement>(null);
+  const [inputWidth, setInputWidth] = useState(0);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
@@ -648,6 +722,12 @@ function Submit() {
     if (tab !== "add") return;
     setForm(f => ({ ...f, fileName: fileBaseName ? fileBaseName + getExt(f.language) : "" }));
   }, [form.language, tab]);
+
+  useEffect(() => {
+    if (mirrorRef.current) {
+      setInputWidth(mirrorRef.current.offsetWidth);
+    }
+  }, [fileBaseName]);
 
   const handleAuth = async () => {
     setAuthLoading(true);
@@ -787,26 +867,30 @@ function Submit() {
               </div>
               <div className="flex flex-col gap-1.5">
                 <label className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider">File Name</label>
-               <div className="bg-white/5 border border-white/10 focus-within:border-white/30 transition-all px-3 py-2 flex items-center w-full cursor-text" onClick={() => fileInputRef.current?.focus()}>
-  <div className="relative flex items-center min-w-0">
-    <span className="text-sm font-mono text-white opacity-0 pointer-events-none whitespace-pre min-w-[1ch]">
-      {fileBaseName || "catbox"}
-    </span>
-    <input
-      value={fileBaseName}
-      onChange={e => {
-        const base = e.target.value;
-        setFileBaseName(base);
-        setForm(f => ({ ...f, fileName: base ? base + getExt(f.language) : "" }));
-      }}
-      placeholder="catbox"
-      className="bg-transparent text-sm text-white font-mono focus:outline-none absolute inset-0 w-full placeholder:text-white/30"
-      ref={fileInputRef}
-    />
-  </div>
-  <div className="flex-1" onClick={() => fileInputRef.current?.focus()} />
-  <span className="text-sm font-mono text-white/40 select-none">{getExt(form.language)}</span>
-</div>
+                <div className="bg-white/5 border border-white/10 focus-within:border-white/30 transition-all px-3 py-2 flex items-center w-full overflow-hidden">
+                  <span
+                    ref={mirrorRef}
+                    className="invisible absolute text-sm font-mono whitespace-pre pointer-events-none"
+                    aria-hidden="true"
+                  >
+                    {fileBaseName || "catbox"}
+                  </span>
+                  <div className="flex items-center min-w-0">
+                    <input
+                      value={fileBaseName}
+                      onChange={e => {
+                        const base = e.target.value;
+                        setFileBaseName(base);
+                        setForm(f => ({ ...f, fileName: base ? base + getExt(f.language) : "" }));
+                      }}
+                      placeholder="catbox"
+                      className="bg-transparent text-sm text-white font-mono focus:outline-none placeholder:text-white/30 min-w-[1ch]"
+                      ref={fileInputRef}
+                      style={{ width: inputWidth > 0 ? `${inputWidth}px` : "60px" }}
+                    />
+                    <span className="text-sm font-mono text-white/40 select-none flex-shrink-0">{getExt(form.language)}</span>
+                  </div>
+                </div>
               </div>
               <div className="flex flex-col gap-1.5">
                 <label className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider">Explanation</label>
@@ -972,13 +1056,18 @@ export default function App() {
   return (
     <Router>
       <ScrollToTop />
-      <MainLayout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/view/:fileName" element={<ViewScript />} />
-          <Route path="/submit" element={<Submit />} />
-        </Routes>
-      </MainLayout>
+      <Routes>
+        <Route path="/raw/:fileName" element={<RawScript />} />
+        <Route path="*" element={
+          <MainLayout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/view/:fileName" element={<ViewScript />} />
+              <Route path="/submit" element={<Submit />} />
+            </Routes>
+          </MainLayout>
+        } />
+      </Routes>
     </Router>
   );
 }
