@@ -168,14 +168,14 @@ interface Script {
 function GroupSeparator({ label }: { label: string }) {
   return (
     <div className="col-span-full flex items-center gap-3 py-1 mt-2 first:mt-0">
-      <div className="h-px flex-1 bg-white/[0.06]" />
+      <div className="h-px flex-1 bg-white/[0.12]" />
       <span
-        className="text-[10px] text-white/25 select-none"
+        className="text-[11px] text-white/45 select-none"
         style={{ fontFamily: "'Ubuntu Mono', monospace" }}
       >
         — {label} —
       </span>
-      <div className="h-px flex-1 bg-white/[0.06]" />
+      <div className="h-px flex-1 bg-white/[0.12]" />
     </div>
   );
 }
@@ -191,15 +191,16 @@ function groupScripts(scripts: Script[], sort: SortOption): { key: string; label
     }
     return Array.from(map.entries()).map(([label, items]) => ({ key: label, label, items }));
   } else {
+    const sorted = [...scripts].sort((a, b) =>
+      sort === "a-z" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
+    );
     const map = new Map<string, Script[]>();
-    for (const s of scripts) {
+    for (const s of sorted) {
       const letter = s.name[0]?.toUpperCase() || '#';
       if (!map.has(letter)) map.set(letter, []);
       map.get(letter)!.push(s);
     }
-    return Array.from(map.entries())
-      .sort((a, b) => sort === "a-z" ? a.key.localeCompare(b.key) : b.key.localeCompare(a.key))
-      .map(([letter, items]) => ({ key: letter, label: letter, items }));
+    return Array.from(map.entries()).map(([letter, items]) => ({ key: letter, label: letter, items }));
   }
 }
 
