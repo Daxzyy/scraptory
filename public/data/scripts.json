@@ -138,7 +138,7 @@
     "id": "16",
     "name": "100K Kata",
     "fileName": "kamus.json",
-    "explanation": "Kumpulan 100 ribu kata.",
+    "explanation": "Kumpulan 100 ribu kata dari Kamus Besar Bahasa Indonesia",
     "language": "JSON",
     "author": "Givy",
     "date": "2026-04-20"
