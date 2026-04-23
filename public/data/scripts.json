@@ -160,5 +160,14 @@
     "language": "JavaScript",
     "author": "Givy",
     "date": "2026-04-22"
+  },
+  {
+    "id": "19",
+    "name": "Temporary Email Generator",
+    "fileName": "temp-mail.js",
+    "explanation": "Script Python untuk membuat email sementara menggunakan API mail.tm. Fitur: generate email random, login otomatis, cek inbox, dan membaca pesan. (By ѕнιяσ 𝓂ℯ𝓰𝓪𝓷𝓮)",
+    "language": "Python",
+    "author": "Givy",
+    "date": "2026-04-23"
   }
 ]
