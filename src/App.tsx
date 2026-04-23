@@ -87,7 +87,7 @@ function Navbar() {
         </Link>
         <Link
           to="/submit"
-          className="flex items-center gap-1.5 px-3 py-1.5 border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/30 transition-all text-[11px] font-bold text-white/50 hover:text-white uppercase tracking-wider"
+          className="flex items-center gap-1.5 px-3 py-1.5 border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/30 transition-all text-[11px] font-bold text-white/50 hover:text-white tracking-wider"
         >
           <FilePlus className="w-3 h-3" />
           New
