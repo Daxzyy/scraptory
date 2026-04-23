@@ -31,8 +31,8 @@ export default async function handler(req, res) {
   try {
     if (fileName) {
       const codeRes = await fetch(
-        `https://raw.githubusercontent.com/Daxzyy/codetory/main/public/scripts/${fileName}`
-      );
+  `https://raw.githubusercontent.com/Daxzyy/codetory/main/public/scripts/${fileName}?t=${Date.now()}`
+);
       if (!codeRes.ok) return res.status(404).json({ error: "Not found" });
       const code = await codeRes.text();
       const encrypted = await encrypt({ code, fileName });
