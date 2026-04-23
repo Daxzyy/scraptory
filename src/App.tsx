@@ -531,6 +531,7 @@ function Submit() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [searchManage, setSearchManage] = useState("");
 
   useEffect(() => {
     if (!authed) return;
@@ -648,8 +649,8 @@ function Submit() {
 
           <div className="flex border-b border-white/10 mb-6">
             <button className={tabClass("add")} onClick={() => { setTab("add"); setStatus("idle"); setErrorMsg(""); setForm({ name: "", fileName: "", language: "JavaScript", explanation: "", code: "", author: "Givy" }); }}>Add</button>
-            <button className={tabClass("edit")} onClick={() => { setTab("edit"); setStatus("idle"); setErrorMsg(""); setSelectedScript(null); }}>Edit</button>
-            <button className={tabClass("delete")} onClick={() => { setTab("delete"); setStatus("idle"); setErrorMsg(""); }}>Delete</button>
+            <button className={tabClass("edit")} onClick={() => { setTab("edit"); setStatus("idle"); setErrorMsg(""); setSelectedScript(null); setSearchManage(""); }}>Edit</button>
+            <button className={tabClass("delete")} onClick={() => { setTab("delete"); setStatus("idle"); setErrorMsg(""); setSearchManage(""); }}>Delete</button>
           </div>
 
           {tab === "add" && (
@@ -709,7 +710,17 @@ function Submit() {
                   </div>
                 ) : (
                   <div className="flex flex-col gap-2">
-                    {scripts.map(s => (
+                    <div className="relative mb-1">
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20" />
+                      <input
+                        type="text"
+                        placeholder="Search scripts..."
+                        value={searchManage}
+                        onChange={e => setSearchManage(e.target.value)}
+                        className="w-full bg-white/5 border border-white/10 pl-9 pr-3 py-2 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-white/30 transition-all"
+                      />
+                    </div>
+                    {scripts.filter(s => s.name.toLowerCase().includes(searchManage.toLowerCase()) || s.fileName.toLowerCase().includes(searchManage.toLowerCase())).map(s => (
                       <button key={s.id} onClick={() => handleSelectEdit(s)}
                         className="flex items-center justify-between px-3 py-2.5 border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/30 transition-all text-left group">
                         <div className="flex items-center gap-2.5">
@@ -767,26 +778,38 @@ function Submit() {
                   {[1,2,3].map(i => <div key={i} className="h-10 bg-white/5 animate-pulse" />)}
                 </div>
               ) : (
-                scripts.map(s => (
-                  <div key={s.id} className="flex items-center justify-between px-3 py-2.5 border border-white/10 bg-white/[0.02]">
-                    <div className="flex items-center gap-2.5">
-                      <LangIcon language={s.language} className="w-4 h-4" />
-                      <span className="text-sm text-white/70 font-medium">{s.name}</span>
-                      <span className="text-[10px] font-mono text-neutral-500">{s.fileName}</span>
-                    </div>
-                    {deleteConfirm === s.fileName ? (
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] text-red-400 font-mono">sure?</span>
-                        <button onClick={() => handleDelete(s.fileName)} className="text-[10px] font-bold text-red-400 hover:text-red-300 uppercase tracking-wider transition-all">Yes</button>
-                        <button onClick={() => setDeleteConfirm(null)} className="text-[10px] font-bold text-white/30 hover:text-white uppercase tracking-wider transition-all">No</button>
-                      </div>
-                    ) : (
-                      <button onClick={() => setDeleteConfirm(s.fileName)} className="text-white/20 hover:text-red-400 transition-all">
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    )}
+                <>
+                  <div className="relative mb-1">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20" />
+                    <input
+                      type="text"
+                      placeholder="Search scripts..."
+                      value={searchManage}
+                      onChange={e => setSearchManage(e.target.value)}
+                      className="w-full bg-white/5 border border-white/10 pl-9 pr-3 py-2 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-white/30 transition-all"
+                    />
                   </div>
-                ))
+                  {scripts.filter(s => s.name.toLowerCase().includes(searchManage.toLowerCase()) || s.fileName.toLowerCase().includes(searchManage.toLowerCase())).map(s => (
+                    <div key={s.id} className="flex items-center justify-between px-3 py-2.5 border border-white/10 bg-white/[0.02]">
+                      <div className="flex items-center gap-2.5">
+                        <LangIcon language={s.language} className="w-4 h-4" />
+                        <span className="text-sm text-white/70 font-medium">{s.name}</span>
+                        <span className="text-[10px] font-mono text-neutral-500">{s.fileName}</span>
+                      </div>
+                      {deleteConfirm === s.fileName ? (
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] text-red-400 font-mono">sure?</span>
+                          <button onClick={() => handleDelete(s.fileName)} className="text-[10px] font-bold text-red-400 hover:text-red-300 uppercase tracking-wider transition-all">Yes</button>
+                          <button onClick={() => setDeleteConfirm(null)} className="text-[10px] font-bold text-white/30 hover:text-white uppercase tracking-wider transition-all">No</button>
+                        </div>
+                      ) : (
+                        <button onClick={() => setDeleteConfirm(s.fileName)} className="text-white/20 hover:text-red-400 transition-all">
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </>
               )}
               {status === "error" && <p className="text-red-400 text-xs font-mono mt-2">{errorMsg}</p>}
             </div>
