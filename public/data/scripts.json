@@ -281,7 +281,7 @@
   {
     "id": "32",
     "name": "Ailabs Image & Video",
-    "fileName": "ai-generateVideo&Image.js",
+    "fileName": "ai-generate-video-image.js",
     "explanation": "Membuat Gambar dan Video dari Prompt",
     "language": "JavaScript",
     "author": "givy",
