@@ -180,15 +180,6 @@
     "date": "2026-04-23"
   },
   {
-    "id": "33",
-    "name": "Animekuindo",
-    "fileName": "animeku-indo.js",
-    "explanation": "Scraper Website Nonton Anime",
-    "language": "JavaScript",
-    "author": "givy",
-    "date": "2026-04-24"
-  },
-  {
     "id": "34",
     "name": "Yt Image",
     "fileName": "yt-image.js",
