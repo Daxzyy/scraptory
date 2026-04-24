@@ -180,15 +180,6 @@
     "date": "2026-04-23"
   },
   {
-    "id": "31",
-    "name": "Search Server Minecraft",
-    "fileName": "search-mcserver.js",
-    "explanation": "Mencari Server-server Minecraft",
-    "language": "JavaScript",
-    "author": "givy",
-    "date": "2026-04-24"
-  },
-  {
     "id": "32",
     "name": "Ailabs Image & Video",
     "fileName": "ai-generate-video-image.js",
