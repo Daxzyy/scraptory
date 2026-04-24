@@ -178,14 +178,5 @@
     "language": "JavaScript",
     "author": "Givy",
     "date": "2026-04-23"
-  },
-  {
-    "id": "39",
-    "name": "WebToon",
-    "fileName": "webtoon.js",
-    "explanation": "fitur webtoon search, detail dn download",
-    "language": "JavaScript",
-    "author": "givy",
-    "date": "2026-04-24"
   }
 ]
