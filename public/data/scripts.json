@@ -180,15 +180,6 @@
     "date": "2026-04-23"
   },
   {
-    "id": "28",
-    "name": "Anichin",
-    "fileName": "anichin-v1.js",
-    "explanation": "Scraper Anichin (Website Nonton Donghua)",
-    "language": "JavaScript",
-    "author": "givy",
-    "date": "2026-04-24"
-  },
-  {
     "id": "29",
     "name": "Big Jpg",
     "fileName": "bigjpg-upscale.js",
