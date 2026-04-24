@@ -180,15 +180,6 @@
     "date": "2026-04-23"
   },
   {
-    "id": "35",
-    "name": "Kusonime",
-    "fileName": "kusonime.js",
-    "explanation": "Scraper Website Cari Anime",
-    "language": "JavaScript",
-    "author": "givy",
-    "date": "2026-04-24"
-  },
-  {
     "id": "36",
     "name": "Mcpedl",
     "fileName": "mcpedl.js",
