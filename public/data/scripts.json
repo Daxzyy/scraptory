@@ -189,15 +189,6 @@
     "date": "2026-04-24"
   },
   {
-    "id": "22",
-    "name": "Fake afinitas ML",
-    "fileName": "fakeafinitasml.js",
-    "explanation": "Membuat Afinitas ml palsu. input PP url.",
-    "language": "JavaScript",
-    "author": "givy",
-    "date": "2026-04-24"
-  },
-  {
     "id": "23",
     "name": "Apple Music Downloader",
     "fileName": "applemusicdl.js",
