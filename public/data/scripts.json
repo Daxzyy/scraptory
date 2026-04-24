@@ -180,15 +180,6 @@
     "date": "2026-04-23"
   },
   {
-    "id": "25",
-    "name": "Terabox Downloader",
-    "fileName": "terabox-dl.js",
-    "explanation": "Mengunduh File dari link Terabox dengan mudah tanpa iklan yang menggangu",
-    "language": "JavaScript",
-    "author": "givy",
-    "date": "2026-04-24"
-  },
-  {
     "id": "27",
     "name": "Youtube Downloader",
     "fileName": "ssyoutube-ytdl.js",
