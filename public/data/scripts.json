@@ -180,15 +180,6 @@
     "date": "2026-04-23"
   },
   {
-    "id": "29",
-    "name": "Big Jpg",
-    "fileName": "bigjpg-upscale.js",
-    "explanation": "Up Scala",
-    "language": "JavaScript",
-    "author": "givy",
-    "date": "2026-04-24"
-  },
-  {
     "id": "30",
     "name": "Chatex Ai",
     "fileName": "chatex-ai.js",
