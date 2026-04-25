@@ -1066,6 +1066,137 @@ function Submit() {
   );
 }
 
+function Stats() {
+  const [scripts, setScripts] = useState<Script[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/scripts")
+      .then((r) => r.json())
+      .then(async ({ d }) => {
+        const data = await decryptData(d);
+        setScripts(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  const today = new Date().toISOString().split("T")[0];
+  const fmt = (dateStr: string) =>
+    new Date(dateStr + "T00:00:00").toLocaleDateString("id-ID", { day: "numeric", month: "short" });
+
+  const countByDate: Record<string, number> = {};
+  for (const s of scripts) countByDate[s.date] = (countByDate[s.date] || 0) + 1;
+
+  const allDates = Object.keys(countByDate).sort();
+  const maxCount = Math.max(...Object.values(countByDate), 1);
+  const total = scripts.length;
+  const todayCount = countByDate[today] || 0;
+  const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
+  const yesterdayCount = countByDate[yesterday] || 0;
+
+  const now = new Date();
+  const startOfWeek = new Date(now);
+  startOfWeek.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+  const startOfWeekStr = startOfWeek.toISOString().split("T")[0];
+  const weekCount = Object.entries(countByDate)
+    .filter(([d]) => d >= startOfWeekStr && d <= today)
+    .reduce((a, [, v]) => a + v, 0);
+
+  const recordEntry = Object.entries(countByDate).sort((a, b) => b[1] - a[1])[0];
+
+  const langCount: Record<string, number> = {};
+  for (const s of scripts) langCount[s.language] = (langCount[s.language] || 0) + 1;
+  const langEntries = Object.entries(langCount).sort((a, b) => b[1] - a[1]);
+  const maxLang = Math.max(...langEntries.map(([, v]) => v), 1);
+  const langColors: Record<string, string> = {
+    JavaScript: "#F5C842", TypeScript: "#3B82F6", Python: "#3B82F6", JSON: "#aaaaaa",
+  };
+
+  return (
+    <div className="max-w-2xl mx-auto px-4 py-8">
+      <Link to="/" className="inline-flex items-center gap-1.5 text-neutral-500 hover:text-white transition-colors mb-6 group text-[10px] font-bold uppercase tracking-wider">
+        <ArrowLeft className="w-3 h-3 group-hover:-translate-x-0.5 transition-transform" />
+        back to home
+      </Link>
+      <p className="text-[11px] text-neutral-600 mb-6 font-mono tracking-wider">codetory / stats</p>
+
+      {loading ? (
+        <div className="space-y-3">
+          {[1,2,3].map(i => <div key={i} className="h-20 bg-white/5 animate-pulse rounded-lg" />)}
+        </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-8">
+            {[
+              { label: "Total", val: String(total), sub: "all time", green: false },
+              { label: "Hari ini", val: `+${todayCount}`, sub: fmt(today), green: true },
+              { label: "Kemarin", val: `+${yesterdayCount}`, sub: fmt(yesterday) + (recordEntry?.[0] === yesterday ? " — rekor" : ""), green: false },
+              { label: "Minggu ini", val: `+${weekCount}`, sub: `${fmt(startOfWeekStr)}–${fmt(today)}`, green: false },
+            ].map(c => (
+              <div key={c.label} className="border border-white/10 bg-white/[0.03] rounded-lg px-4 py-3">
+                <p className="text-[11px] text-neutral-500 mb-1.5 uppercase tracking-wider">{c.label}</p>
+                <p className="text-2xl font-medium leading-none mb-1" style={{ color: c.green ? "#22c55e" : "white" }}>{c.val}</p>
+                <p className="text-[11px] text-neutral-500">{c.sub}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mb-8">
+            <p className="text-[11px] font-medium text-neutral-500 uppercase tracking-wider mb-3">Timeline harian</p>
+            <div className="flex flex-col gap-1.5">
+              {allDates.map(date => {
+                const count = countByDate[date];
+                const isToday = date === today;
+                const isRecord = recordEntry && date === recordEntry[0] && count > 1;
+                const pct = Math.max((count / maxCount) * 100, 3);
+                return (
+                  <div key={date} className="flex items-center gap-3">
+                    <span className="font-mono flex-shrink-0 text-right text-xs" style={{ width: 52, color: isToday ? "white" : "#666", fontWeight: isToday ? 500 : 400 }}>
+                      {fmt(date)}
+                    </span>
+                    <div className="flex items-center rounded px-2" style={{ width: `${pct}%`, minWidth: 28, height: 20, background: isToday ? "rgba(34,197,94,0.12)" : isRecord ? "rgba(59,130,246,0.13)" : "rgba(59,130,246,0.08)" }}>
+                      <span className="text-xs font-mono whitespace-nowrap" style={{ color: isToday ? "#22c55e" : isRecord ? "#93c5fd" : "#666" }}>
+                        {isRecord && !isToday ? `${count} — terbanyak` : count}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+              {!countByDate[today] && (
+                <>
+                  <hr className="border-none border-t border-white/10 my-1" />
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono flex-shrink-0 text-right text-xs" style={{ width: 52, color: "white", fontWeight: 500 }}>{fmt(today)}</span>
+                    <div className="flex items-center rounded px-2" style={{ width: "3%", minWidth: 32, height: 20, background: "rgba(34,197,94,0.1)" }}>
+                      <span className="text-xs font-mono" style={{ color: "#22c55e" }}>0</span>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <p className="text-[11px] font-medium text-neutral-500 uppercase tracking-wider mb-3">By language</p>
+            <div className="flex flex-col gap-2">
+              {langEntries.map(([lang, count]) => (
+                <div key={lang} className="flex items-center gap-3">
+                  <span className="text-right flex-shrink-0 text-xs text-neutral-400" style={{ width: 80 }}>{lang}</span>
+                  <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)", border: "0.5px solid rgba(255,255,255,0.08)" }}>
+                    <div className="h-full rounded-full" style={{ width: `${(count / maxLang) * 100}%`, background: langColors[lang] || "#aaa" }} />
+                  </div>
+                  <span className="text-[11px] text-neutral-500 font-mono flex-shrink-0" style={{ width: 24 }}>{count}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
@@ -1099,6 +1230,7 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/view/:fileName" element={<ViewScript />} />
               <Route path="/submit" element={<Submit />} />
+<Route path="/stats" element={<Stats />} />
             </Routes>
           </MainLayout>
         } />
