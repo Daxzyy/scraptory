@@ -81,7 +81,7 @@ function truncate(str: string, max: number): string {
 }
 
 function renderWithLinks(text: string): React.ReactNode[] {
-  const regex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)|(https?:\/\/[^\s]+)|(\b[\w-]+\.(?:com|id|my\.id|net|org|io|app|tm|dev|co|info|site|online)\b)/g;
+  const regex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)|(https?:\/\/[^\s]+)|(\b[\w-]+\.(?:com|id|my\.id|co\.id|biz\.id|net|org|io|app|tm|dev|site|online|info|ac\.id|sch\.id)\b)/g;
   const parts: React.ReactNode[] = [];
   let lastIndex = 0;
   let match;
