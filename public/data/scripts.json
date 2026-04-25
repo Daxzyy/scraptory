@@ -369,12 +369,21 @@
     "date": "2026-04-24"
   },
   {
-  "id": "42",
-  "name": "Grow a Garden Stock",
-  "fileName": "growagarden.js",
-  "explanation": "Cek stok Grow a Garden (seeds, gear, eggs, weather).",
-  "language": "JavaScript",
-  "author": "Givy",
-  "date": "2026-04-24"
-}
+    "id": "42",
+    "name": "Grow a Garden Stock",
+    "fileName": "growagarden.js",
+    "explanation": "Cek stok Grow a Garden (seeds, gear, eggs, weather).",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-04-24"
+  },
+  {
+    "id": "43",
+    "name": "Remove Clothes",
+    "fileName": "remove-clothes.js",
+    "explanation": "Melepas pakaian di foto🤭 (parah jir)",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-04-25"
+  }
 ]
