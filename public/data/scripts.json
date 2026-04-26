@@ -412,5 +412,14 @@
     "language": "JavaScript",
     "author": "Givy",
     "date": "2026-04-26"
+  },
+  {
+    "id": "47",
+    "name": "Lazada Product",
+    "fileName": "lazada.js",
+    "explanation": "Mengambil data produk dari Lazada, termasuk list hasil pencarian dan detail produk.",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-04-26"
   }
 ]
