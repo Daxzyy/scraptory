@@ -421,5 +421,14 @@
     "language": "JavaScript",
     "author": "Givy",
     "date": "2026-04-26"
+  },
+  {
+    "id": "48",
+    "name": "Umamusume TTS",
+    "fileName": "umamusume-tts.js",
+    "explanation": "Ubah teks jadi suara karakter Umamusume.",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-05-01"
   }
 ]
