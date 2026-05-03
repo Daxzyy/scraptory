@@ -430,5 +430,14 @@
     "language": "JavaScript",
     "author": "Givy",
     "date": "2026-05-01"
+  },
+  {
+    "id": "49",
+    "name": "ScriptBlox Search",
+    "fileName": "scriptblox.js",
+    "explanation": "Untuk mendapatkan script dari scriptblox.com berdasarkan query. (by givy)",
+    "language": "JavaScript",
+    "author": "Givy",
+    "date": "2026-05-03"
   }
 ]
